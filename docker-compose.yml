@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    environment:
+      TZ: 'America/Mendoza'          # Cambia a tu zona horaria
+      WEBPASSWORD: 'tu_contraseña'  # Cambia la contraseña por seguridad
+    volumes:
+      - ./etc-pihole:/etc/pihole
+      - ./etc-dnsmasq.d:/etc/dnsmasq.d
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80"
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
